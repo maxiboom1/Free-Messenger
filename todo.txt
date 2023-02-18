@@ -1,0 +1,16 @@
+TODO:
+
+Global task:
+-intergrate sockets.io  
+
+Chat:
+-Edit message
+-Delete message
+-isTyping feature
+-pagged messages request
+
+User:
+
+-Add up to 3 profile photos
+-Delete user
+-Modify user
