@@ -28,11 +28,11 @@ server.listen(appConfig.port, () => console.log("Listening on http://localhost:"
 // 
 const io = new Server(3601, { cors: { origin: '*' } });
 
-io.on("connection", (socket) => {
+io.on("connect", (socket) => {
     
     console.log(`socket ${socket.id} connected`);
     
-    socket.on('chat message', (msg) => {
+    socket.on('USER_ONLINE', (msg) => {
         console.log('message: ' + msg);
         // update mysql here ...?
     });
