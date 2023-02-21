@@ -1,7 +1,7 @@
 class AppConfig {
 
     // Server Port:
-    public port = 4000;
+    public port = 3600;
 
     // Database Host (on which computer the database exists):
     public mySqlHost = "localhost";

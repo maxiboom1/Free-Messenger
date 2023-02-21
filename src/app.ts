@@ -26,7 +26,7 @@ server.use(catchAll);
 server.listen(appConfig.port, () => console.log("Listening on http://localhost:" + appConfig.port));
 
 // 
-const io = new Server(3002, { cors: { origin: '*' } });
+const io = new Server(3601, { cors: { origin: '*' } });
 
 io.on("connection", (socket) => {
     
