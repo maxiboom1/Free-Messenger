@@ -27,7 +27,7 @@ server.use(routeNotFound);
 // Handle catch-all: 
 server.use(catchAll);
 
-// Run server:
+// Run server on port 3600:
 server.listen(appConfig.port, () => console.log("Listening on http://localhost:" + appConfig.port));
 
 // 

@@ -18,10 +18,10 @@ class AuthService {
     authStore.dispatch({type: AuthActionType.Login, payload: token});
   }
 
-  // LOGOUT
-//  public logout(): void {
-//   authStore.dispatch({type: AuthActionType.Logout});
-//  }
+  //LOGOUT
+ public logout(): void {
+  authStore.dispatch({type: AuthActionType.Logout});
+ }
 }
 
 const authService = new AuthService();

@@ -6,13 +6,14 @@ import dal from "../4-utils/dal";
 async function getAllUsers(): Promise<UserModel[]> {
 
     // Create query: 
-    const sql = `SELECT * FROM users`;
+    const sql = `SELECT userId, username, isOnline FROM users`;
 
     // Get all products: 
-    const products = await dal.execute(sql);
+    const users = await dal.execute(sql);
 
+    
     // Return them:
-    return products;
+    return users;
 }
 
 async function postMessage(message:MessageModel): Promise<MessageModel>{
