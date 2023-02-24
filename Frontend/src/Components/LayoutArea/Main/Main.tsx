@@ -14,7 +14,7 @@ function Main(): JSX.Element {
 
     return (
         <div className="Main">
-			Hello
+            Main        
         </div>
     );
 }
