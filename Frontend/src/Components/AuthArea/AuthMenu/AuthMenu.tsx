@@ -8,7 +8,7 @@ function AuthMenu(): JSX.Element {
     return (
         
         <div className="AuthMenu">
-			<span>Wellcome, Guest</span>
+			<span>Welcome, Guest</span>
             <NavLink to="/login">Login</NavLink>
             <NavLink to="/">Register</NavLink>
 
