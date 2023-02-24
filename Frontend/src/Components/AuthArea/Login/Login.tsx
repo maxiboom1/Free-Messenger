@@ -1,17 +1,21 @@
-import CredentialModel from "../../../Models/CredentialModel";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import CredentialsModel from "../../../Models/CredentialsModel";
+import authService from "../../../Services/AuthService";
 import "./Login.css";
 
 function Login(): JSX.Element {
     
-    const {register, handleSubmit} = useForm<CredentialModel>();
+    const {register, handleSubmit} = useForm<CredentialsModel>();
 
-    async function send(credentials: CredentialsModel) {
+    const navigate = useNavigate();
+
+    async function send(credentials: CredentialsModel):Promise<void> {
         try {
-            //await auth
-            alert("nice");
-            window.location.reload();
-            // navigate("/"); DOESNT WORK
+            await authService.login(credentials);
+            console.log('logged in!');
+            navigate("/chatroom")
+
         } catch (err: any) {
             alert(err.message);
         }
@@ -21,8 +25,8 @@ function Login(): JSX.Element {
     return (
         <div className="Login">
             <form onSubmit={handleSubmit(send)}>
-                <input placeholder="JohnDoe123" type="text" {...register("username")} />
-                <input placeholder="my_password" type="password" {...register("password")} />
+                <input placeholder="Username" type="text" {...register("username")} />
+                <input placeholder="Password" type="password" {...register("password")} />
                 <button>Start Chatting!</button>
             </form >
         </div>

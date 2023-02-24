@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../../AuthArea/Login/Login";
+import ChatRoom from "../ChatRoom/ChatRoom";
 import Main from "../Main/Main";
 import "./Routing.css";
 
@@ -16,6 +17,10 @@ function Routing(): JSX.Element {
             
             {/* Login Page: */}
             <Route path="/login" element= {<Login />} />
+
+            {/* Login Page: */}
+            <Route path="/chatroom" element= {<ChatRoom />} />
+
 
         </Routes>
     );

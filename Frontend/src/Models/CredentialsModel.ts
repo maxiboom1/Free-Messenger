@@ -1,6 +1,6 @@
-class CredentialModel {
+class CredentialsModel {
     public username: string;
     public password: string;
 }
 
-export default CredentialModel;
+export default CredentialsModel;

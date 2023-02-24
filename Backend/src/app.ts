@@ -5,9 +5,14 @@ import appConfig from "./4-utils/app-config";
 import productsRoute from "./6-routes/messenger-routes";
 import authRoute from "./6-routes/auth-routes";
 import { Server } from "socket.io";
+import cors from "cors";
 
 // Create server: 
 const server = express();
+
+// CORS
+
+server.use(cors({origin:"http://localhost:3000"}));
 
 // Create request.body object if json was sent:
 server.use(express.json());
