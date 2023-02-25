@@ -9,6 +9,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import usersService from "../../../Services/UsersService";
+import { authStore } from "../../../Redux/AuthState";
 
 function ControlPanel(): JSX.Element {
     
@@ -22,20 +24,24 @@ function ControlPanel(): JSX.Element {
 
     },[])
 
-    console.log(usersList)
+    async function clickHandler(key:number){
+        const userId1 = authStore.getState().user.userId;
+        const userId2 = key; 
+        const usersMessages = await usersService.getUsersMessages(userId1, userId2);
+
+    }
 
       return (
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 100 }} size="small" aria-label="a dense table">
-    
+          <Table sx={{ minWidth: 100 }} size="medium">
             <TableBody>
+              
               {usersList?.map((user) => (
-                <TableRow hover key={user.userId} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row"> 
-                        {user.username}
-                    </TableCell>
+                <TableRow hover key={user.userId} onClick={key => clickHandler(user.userId)}>
+                    <TableCell component="th" scope="row" > {user.username} </TableCell>
                 </TableRow>
               ))}
+
             </TableBody>
           </Table>
         </TableContainer>

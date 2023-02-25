@@ -6,8 +6,11 @@ class AppConfig{
     public usersUrl = "/api/home";
 
     public loginUrl = this.backendUrl + this.restApiPort + "/api/login";
+    
     public getAllUsersUrl = this.backendUrl + this.restApiPort + "/api/home";
-
+    
+    //http://localhost:4000/api/message/:userId1:userId2
+    public get2UsersHistory = this.backendUrl + this.restApiPort + "/api/chat/"; // + :userId1:userId2
 
 }
 
