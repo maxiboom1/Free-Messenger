@@ -1,7 +1,13 @@
 class AppConfig{
     public socketPort = "3601";
     public restApiPort = "3600";
-    public backendUrl = "http://localhost:";
+    
+    // Our public server 
+    public backendUrl = "http://62.90.145.124:";
+    
+    // localhost
+    //public backendUrl = "http://localhost:";
+
     public registerUrl = "/api/register";
     public usersUrl = "/api/home";
 
