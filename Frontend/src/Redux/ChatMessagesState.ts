@@ -43,4 +43,4 @@ export function ChatReducer(currentState = new ChatState(), action: ChatAction):
 }
 
 // 5. Auth Store:
-export const ChatStore = createStore(ChatReducer);
+export const chatStore = createStore(ChatReducer);

@@ -1,6 +1,6 @@
 import axios from "axios";
 import MessageModel from "../Models/MessageModel";
-import { ChatActionType, ChatStore } from "../Redux/ChatMessagesState";
+import { ChatActionType, chatStore } from "../Redux/ChatMessagesState";
 import { UserListActionType, usersStore } from "../Redux/UserListState";
 import appConfig from "../Utils/AppConfig";
 
@@ -18,7 +18,7 @@ class UsersService {
     public async getUsersMessages(userId1: number, userId2: number): Promise <MessageModel[]>{ //create message model to fix it
       const response = await axios.post<MessageModel[]>(appConfig.get2UsersHistory + userId1 + "/" + userId2);
       const messages = response.data;
-      ChatStore.dispatch({type:ChatActionType.fetchMessages, payload: messages})
+      chatStore.dispatch({type:ChatActionType.fetchMessages, payload: messages})
       return messages;
 
     }

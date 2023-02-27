@@ -1,7 +1,7 @@
 import axios from "axios";
 import CredentialsModel from "../Models/CredentialsModel";
 import { AuthActionType, authStore } from "../Redux/AuthState";
-import { ChatActionType, ChatStore } from "../Redux/ChatMessagesState";
+import { ChatActionType, chatStore } from "../Redux/ChatMessagesState";
 import appConfig from "../Utils/AppConfig";
 
 class AuthService {
@@ -22,7 +22,7 @@ class AuthService {
   //LOGOUT
  public logout(): void {
   authStore.dispatch({type: AuthActionType.Logout});
-  ChatStore.dispatch({type: ChatActionType.fetchMessages, payload: []})
+  chatStore.dispatch({type: ChatActionType.fetchMessages, payload: []}); // Clear chat messages state
  }
 }
 
