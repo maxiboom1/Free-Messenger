@@ -28,6 +28,7 @@ function ControlPanel(): JSX.Element {
         const userId1 = authStore.getState().user.userId;
         const userId2 = key; 
         const usersMessages = await usersService.getUsersMessages(userId1, userId2);
+        console.log(usersMessages);
 
     }
 

@@ -1,4 +1,4 @@
-import MessageModel from "../2-models/message-model";
+import MessageModel, { MessageModelWithUsernames } from "../2-models/message-model";
 import UserModel from "../2-models/user-model";
 import dal from "../4-utils/dal";
 
@@ -27,14 +27,22 @@ async function postMessage(message:MessageModel): Promise<MessageModel>{
     return postedMessage;
 }
 
-async function getTwoUsersMessagesList(userId1: number, userId2: number): Promise<MessageModel[]>{
+async function getTwoUsersMessagesList(userId1: number, userId2: number): Promise<MessageModelWithUsernames[]>{
 
     // TODO validation...
 
     const sql = `
-    SELECT * FROM messages WHERE senderUserId = ${userId1} AND recipientUserId = ${userId2}
+    SELECT msg.messageId, msg.messageDate, msg.messageBody, sender.username AS sender, recipient.username AS recipient
+    FROM messages msg
+    JOIN users sender ON msg.senderUserId = sender.userId
+    JOIN users recipient ON msg.recipientUserId = recipient.userId
+    WHERE recipient.userId = ${userId1} AND sender.userId = ${userId2}
     UNION
-    SELECT * FROM messages WHERE senderUserId = ${userId2} AND recipientUserId = ${userId1}
+    SELECT msg.messageId, msg.messageDate, msg.messageBody, sender.username AS sender, recipient.username AS recipient
+    FROM messages msg
+    JOIN users sender ON msg.senderUserId = sender.userId
+    JOIN users recipient ON msg.recipientUserId = recipient.userId
+    WHERE recipient.userId = ${userId2} AND sender.userId = ${userId1}
     ORDER BY messageDate;
     `
     const twoUsersMessagesList = await dal.execute(sql);

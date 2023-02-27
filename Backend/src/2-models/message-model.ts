@@ -1,4 +1,4 @@
-class MessageModel {
+export class MessageModel {
 
     public messageId: number;
     public messageDate: string;
@@ -16,6 +16,16 @@ class MessageModel {
 
     // TODO: Validation...
 
+}
+
+// For joined message data with usernames of sender and recipient.
+export class MessageModelWithUsernames {
+
+    public messageId: number;
+    public messageDate: string;
+    public messageBody: string;
+    public sender: number;
+    public recipient: number;
 }
 
 export default MessageModel;

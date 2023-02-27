@@ -1,9 +1,9 @@
 import { createStore } from "redux";
-import MessageModel from "../Models/MessageModel";
+import { MessageModelWithUsernames } from "../Models/MessageModel";
 
 // 1. Global Chat State:
 export class ChatState {
-    public messages: MessageModel[] = [];
+    public messages: MessageModelWithUsernames[] = [];
 }
 
 // 2. Chat Action Type:

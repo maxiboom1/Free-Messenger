@@ -8,24 +8,26 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import MessageModel from "../../../Models/MessageModel";
-import { ChatStore } from "../../../Redux/ChatMessagesState";
+
+import { MessageModelWithUsernames } from "../../../Models/MessageModel";
+import { chatStore } from "../../../Redux/ChatMessagesState";
 
 function Profile(): JSX.Element {
     
     const user = authStore.getState().user;
-    const [chat, setChat] = useState<MessageModel[]>();
+    const [chat, setChat] = useState<MessageModelWithUsernames[]>();
 
     useEffect(() => {
         (async ()=>{
             const users = await usersService.getAllUsers();
         })()
 
-        setChat(ChatStore.getState().messages);
+        setChat(chatStore.getState().messages);
         
-        const unsubscribe = ChatStore.subscribe(() => {
-            setChat(ChatStore.getState().messages);
+        const unsubscribe = chatStore.subscribe(() => {
+            setChat(chatStore.getState().messages);
         })
+
         return () => unsubscribe();
     },[])
 
@@ -43,13 +45,20 @@ function Profile(): JSX.Element {
                     
                         {chat?.map((msg) => (
                             <TableRow hover key={msg.messageId}>
-                                <TableCell component="th" scope="row" >Sender {msg.senderUserId}: {msg.messageBody} </TableCell>
+                                <TableCell component="th" scope="row" ><b>{msg.sender}:</b> {msg.messageBody} </TableCell>
                             </TableRow>
                         ))}
 
                     </TableBody>
                 </Table>
             </TableContainer>
+            
+            <div className="send">
+                
+                <input type="text" />
+                <button>Send</button>
+            </div>
+            
         </div>
 
         
