@@ -1,5 +1,5 @@
 import "./Profile.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import usersService from "../../../Services/UsersService";
 import { authStore } from "../../../Redux/AuthState";
 import Table from '@mui/material/Table';
@@ -11,13 +11,15 @@ import Paper from '@mui/material/Paper';
 
 import { MessageModelWithUsernames } from "../../../Models/MessageModel";
 import { chatStore } from "../../../Redux/ChatMessagesState";
+import { SocketContext } from "../../../Utils/socket";
 
 function Profile(): JSX.Element {
     
     const user = authStore.getState().user;
     const [chat, setChat] = useState<MessageModelWithUsernames[]>();
     const [message, setMessage] = useState<string>();
-    
+    const socket = useContext(SocketContext);
+
     useEffect(() => {
         (async ()=>{
             const users = await usersService.getAllUsers();
@@ -34,6 +36,7 @@ function Profile(): JSX.Element {
 
     function submit(){
         console.log('You submitted: ' + message);
+        socket.emit("USER_ONLINE", message); // send message to server 
     }
 
     return (
