@@ -22,7 +22,7 @@ function Profile(): JSX.Element {
 
     useEffect(() => {
         (async ()=>{
-            const users = await usersService.getAllUsers();
+            const users = await usersService.getAllUsers(); // it updates usersListState and renders them
         })()
 
         setChat(chatStore.getState().messages);
@@ -35,8 +35,18 @@ function Profile(): JSX.Element {
     },[])
 
     function submit(){
+        
         console.log('You submitted: ' + message);
-        socket.emit("USER_ONLINE", message); // send message to server 
+        
+        const messageObj = {
+            senderId:user.userId,
+            senderUsername: user.username,
+            recipientId: chatStore.getState().activeChatPartner.id,
+            recipientUsername: chatStore.getState().activeChatPartner.username,
+            message: message
+        }
+
+        socket.emit("message", messageObj); // send message to server 
     }
 
     return (
@@ -47,7 +57,7 @@ function Profile(): JSX.Element {
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 100 }} size="medium">
                     <TableBody>
-                    
+                     
                         {chat?.map((msg) => (
                             <TableRow hover key={msg.messageId}>
                                 <TableCell component="th" scope="row" ><b>{msg.sender}:</b> {msg.messageBody} </TableCell>

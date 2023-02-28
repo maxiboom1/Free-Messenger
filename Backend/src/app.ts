@@ -4,8 +4,9 @@ import routeNotFound from "./3-middleware/router-not-found";
 import appConfig from "./4-utils/app-config";
 import productsRoute from "./6-routes/messenger-routes";
 import authRoute from "./6-routes/auth-routes";
-import { Server } from "socket.io";
+//import { Server } from "socket.io";
 import cors from "cors";
+import socketLogic from "./5-services/socket";
 
 // Create server: 
 const server = express();
@@ -30,26 +31,4 @@ server.use(catchAll);
 // Run server on port 3600:
 server.listen(appConfig.port, () => console.log("Listening on http://localhost:" + appConfig.port));
 
-// 
-const io = new Server(3601, { cors: { origin: '*' } });
-
-io.on("connect", (socket) => {
-    
-    console.log(`socket ${socket.id} connected`);
-    
-    socket.on('USER_ONLINE', (msg) => {
-        console.log('message: ' + msg);
-        // update mysql here ...?
-    });
-
-    // upon disconnection
-    socket.on("disconnect", (reason) => {
-      console.log(`socket ${socket.id} disconnected due to ${reason}`);
-    });
-  });
-
-
-
-
-
-
+socketLogic();

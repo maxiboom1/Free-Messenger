@@ -22,7 +22,7 @@ class AuthService {
   //LOGOUT
  public logout(): void {
   authStore.dispatch({type: AuthActionType.Logout});
-  chatStore.dispatch({type: ChatActionType.fetchMessages, payload: []}); // Clear chat messages state
+  chatStore.dispatch({type: ChatActionType.clear, payload: ""});
  }
 }
 
