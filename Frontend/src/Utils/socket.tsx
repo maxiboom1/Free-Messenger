@@ -8,8 +8,6 @@ export const socket = io(appConfig.backendUrl + appConfig.socketPort);
 
 socket.on("message_ack", async (msg: MessageModelWithUsernames) => { 
   chatStore.dispatch({type:ChatActionType.addMessage, payload: msg});
-  //console.log('Socket reciever: ' + JSON.stringify(chatStore.getState()));
-  
 });
   
 export const SocketContext = createContext(socket);

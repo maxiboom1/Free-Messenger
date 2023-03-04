@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import MessageModel from "../2-models/message-model";
+import MessageModel, { MessageModelWithUsernames } from "../2-models/message-model";
 import chatService from "./chat-service";
 
 const onlineUsers = []; // [{userId:userId, socketId:socket.id}...]
@@ -28,10 +28,12 @@ function socketLogic(){
           console.log(onlineUsers)
         });
 
-        socket.on('message', async (msg:MessageModel) => {
+        socket.on('message', async (msg:any) => {
           const messageToPost = new MessageModel(msg);
           const returnedMessage = await chatService.postMessage(messageToPost);
-          socket.emit('message_ack', returnedMessage); // Return msg to the client to local chat update
+          const messageWithUsernames = new MessageModelWithUsernames(msg);
+          messageWithUsernames.messageId = returnedMessage.messageId
+          socket.emit('message_ack', messageWithUsernames); // Return msg to the client to local chat update
         });
     
         socket.on("disconnect", (reason) => {

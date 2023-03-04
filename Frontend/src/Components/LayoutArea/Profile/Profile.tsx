@@ -16,20 +16,18 @@ import { SocketContext } from "../../../Utils/socket";
 function Profile(): JSX.Element {
     
     const user = authStore.getState().user;
-    const [chat, setChat] = useState<MessageModelWithUsernames[]> ([]); 
+    const [chat, setChat] = useState<MessageModelWithUsernames[]>(); 
     const [messageToSubmit, setMessageToSubmit] = useState<string>();
     const socket = useContext(SocketContext);
 
     useEffect(() => {
         (async ()=>{
-            const users = await usersService.getAllUsers(); // it updates redux state and renders them (users component are subscribed to it)
+            await usersService.getAllUsers(); // it updates redux state and renders them (users component are subscribed to it)
         })();
         
-        setChat(chatStore.getState().messages);
-
         const unsubscribe = chatStore.subscribe(() => { 
-            console.log('triggered subscribe func in profile');
-            setChat(chatStore.getState().messages);
+            //setChat(chatStore.getState().messages); => This is wrong
+            setChat(chat => [...chatStore.getState().messages]); // This is good
         })
 
         return () => unsubscribe();
@@ -45,7 +43,7 @@ function Profile(): JSX.Element {
             senderUserId: user.userId,
             recipientUserId: chatStore.getState().activeChatPartner.id,
             
-            // Those 2 parameters are not part of msg model that stored in DB, but part of MessageModelWithUsername, 
+            //Those 2 parameters are not part of message model that stored in DB, but part of MessageModelWithUsername, 
             //the server will return in back to client, and with that data we will update redux message state
             sender: user.username,
             recipient: chatStore.getState().activeChatPartner.username

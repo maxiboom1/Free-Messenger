@@ -26,6 +26,14 @@ export class MessageModelWithUsernames {
     public messageBody: string;
     public sender: number;
     public recipient: number;
+
+    public constructor(user: MessageModelWithUsernames) {
+    this.messageId = user.messageId;
+    this.messageDate = user.messageDate;
+    this.messageBody = user.messageBody;
+    this.sender = user.sender;
+    this.recipient = user.recipient;
+}
 }
 
 export default MessageModel;
