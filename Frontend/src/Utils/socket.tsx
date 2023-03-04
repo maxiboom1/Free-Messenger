@@ -9,5 +9,12 @@ export const socket = io(appConfig.backendUrl + appConfig.socketPort);
 socket.on("message_ack", async (msg: MessageModelWithUsernames) => { 
   chatStore.dispatch({type:ChatActionType.addMessage, payload: msg});
 });
+
+socket.on("new_message", async (msg: MessageModelWithUsernames) => { 
+
+  // Check if active chat partner == recipient id
+
+  chatStore.dispatch({type:ChatActionType.addMessage, payload: msg});
+});
   
 export const SocketContext = createContext(socket);

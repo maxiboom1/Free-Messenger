@@ -29,11 +29,23 @@ function socketLogic(){
         });
 
         socket.on('message', async (msg:any) => {
+          
+          // Write message to DB
           const messageToPost = new MessageModel(msg);
           const returnedMessage = await chatService.postMessage(messageToPost);
+
+          // Return msg to the sender
           const messageWithUsernames = new MessageModelWithUsernames(msg);
-          messageWithUsernames.messageId = returnedMessage.messageId
-          socket.emit('message_ack', messageWithUsernames); // Return msg to the client to local chat update
+          messageWithUsernames.messageId = returnedMessage.messageId;
+          socket.emit('message_ack', messageWithUsernames); 
+
+          //Send message to recipient
+          for(const x of onlineUsers){
+            if(x.userId === returnedMessage.recipientUserId){
+              io.to(x.socketId).emit('new_message', messageWithUsernames);
+            }
+          }
+
         });
     
         socket.on("disconnect", (reason) => {
