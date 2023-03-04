@@ -1,5 +1,5 @@
 import "./Profile.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import usersService from "../../../Services/UsersService";
 import { authStore } from "../../../Redux/AuthState";
 import Table from '@mui/material/Table';
@@ -19,6 +19,7 @@ function Profile(): JSX.Element {
     const [chat, setChat] = useState<MessageModelWithUsernames[]>(); 
     const [messageToSubmit, setMessageToSubmit] = useState<string>();
     const socket = useContext(SocketContext);
+    const inputRef = useRef(null);
 
     useEffect(() => {
         (async ()=>{
@@ -50,6 +51,7 @@ function Profile(): JSX.Element {
         }
 
         socket.emit("message", messageObj); // send message to server 
+        inputRef.current.value = "";
     }
 
     return (
@@ -72,7 +74,7 @@ function Profile(): JSX.Element {
             
             <div className="send">
                 
-                <input onChange={(e)=>setMessageToSubmit(e.target.value)} type="text" />
+                <input onChange={(e)=>setMessageToSubmit(e.target.value)} ref={inputRef} type="text" />
                 <button onClick={submit}>Send</button>
             </div>
             
