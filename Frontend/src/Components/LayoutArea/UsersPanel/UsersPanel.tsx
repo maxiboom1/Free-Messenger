@@ -19,7 +19,7 @@ function ControlPanel(): JSX.Element {
   
   useEffect(()=>{
       
-    const unsubscribe = usersStore.subscribe(()=>{
+    usersStore.subscribe(()=>{
         setUsersList(usersStore.getState().users);
     });
 
@@ -29,7 +29,7 @@ function ControlPanel(): JSX.Element {
     const userId1 = authStore.getState().user.userId;
     const userId2 = key; 
     const chatPartner = {id: userId2, username: activeChatPartnerUsername};
-    chatStore.dispatch({type: ChatActionType.setActiveChatPartner, payload: chatPartner}); // Store ActiveChatPartner {id, nickname}
+    chatStore.dispatch({type:ChatActionType.setActiveChatPartner, payload: chatPartner});
     await usersService.getUsersMessages(userId1, userId2);
   };
 

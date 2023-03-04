@@ -40,6 +40,7 @@ export function ChatReducer(currentState = new ChatState(), action: ChatAction):
             break;
         case ChatActionType.setActiveChatPartner: // Here, the payload is new online user
             newState.activeChatPartner = action.payload;
+            newState.messages = [];
             break;
         case ChatActionType.clear: //clear state
             newState.activeChatPartner = {id:undefined, username:""};

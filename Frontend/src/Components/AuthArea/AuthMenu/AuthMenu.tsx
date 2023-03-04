@@ -1,15 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./AuthMenu.css";
 import UserModel from "../../../Models/UserModel";
 import { authStore } from "../../../Redux/AuthState";
 import authService from "../../../Services/AuthService";
 import { UserListActionType, usersStore } from "../../../Redux/UserListState";
+import { SocketContext } from "../../../Utils/socket";
 
 function AuthMenu(): JSX.Element {
     
     const [user,setUser] = useState<UserModel>();
-
+    const socket = useContext(SocketContext);
     useEffect(() => {
 
         setUser(authStore.getState().user);
@@ -23,6 +24,8 @@ function AuthMenu(): JSX.Element {
     },[]);
 
     function logout(): void {
+        
+        socket.emit('client_logout',authStore.getState().user.userId )
         authService.logout(); // logout  user and delete token
         usersStore.dispatch({type: UserListActionType.addAllUsers, payload: []}); // reset users state (redux)
         alert("Bye Bye...");

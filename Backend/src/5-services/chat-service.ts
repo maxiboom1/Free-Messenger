@@ -1,3 +1,4 @@
+import { OkPacket } from "mysql";
 import MessageModel, { MessageModelWithUsernames } from "../2-models/message-model";
 import UserModel from "../2-models/user-model";
 import dal from "../4-utils/dal";
@@ -18,13 +19,14 @@ async function getAllUsers(): Promise<UserModel[]> {
 
 async function postMessage(message:MessageModel): Promise<MessageModel>{
 
-    // TODO validation...
-
     const sql = `INSERT INTO messages VALUES (DEFAULT,current_timestamp(),'${message.messageBody}','${message.senderUserId}','${message.recipientUserId}');`
     
-    const postedMessage = await dal.execute(sql);
-        
-    return postedMessage;
+    const response:OkPacket = await dal.execute(sql);
+
+    message.messageId = response.insertId; // return the assigned id
+    
+    return message;
+    
 }
 
 async function getTwoUsersMessagesList(userId1: number, userId2: number): Promise<MessageModelWithUsernames[]>{

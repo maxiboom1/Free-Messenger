@@ -1,28 +1,45 @@
 import { Server } from "socket.io";
+import MessageModel from "../2-models/message-model";
+import chatService from "./chat-service";
+
+const onlineUsers = []; // [{userId:userId, socketId:socket.id}...]
 
 function socketLogic(){
     
     const io = new Server(3601, { cors: { origin: '*' } });
 
     io.on("connect", (socket) => {
-    
-        console.log(`socket ${socket.id} connected`);
-        
-        socket.on('new_client', (msg) => { // message: {senderId:___, recipientId:___, message: string}
+            
+        socket.on('new_client', (userId:number) => { 
           
-          console.log('Client ' + msg + ', with session id: ' + socket.id + ' is now online');
+          onlineUsers.push({
+            userId:userId,
+            socketId:socket.id
+
+          });
+
+          console.log('Online users:' + JSON.stringify(onlineUsers));
+        });
+        
+        socket.on('client_logout', (userId:number) => { 
+          const idToRemove = onlineUsers.findIndex(user => user.socketId === socket.id);
+          console.log(onlineUsers[idToRemove]?.userId +' will be removed');
+          onlineUsers.splice(idToRemove,1);
+          console.log(onlineUsers)
         });
 
-        socket.on('message', (msg) => { // message: {senderId:___, recipientId:___, message: string}
-          console.log('message: ' + JSON.stringify(msg));
+        socket.on('message', async (msg:MessageModel) => {
+          const messageToPost = new MessageModel(msg);
+          const returnedMessage = await chatService.postMessage(messageToPost);
+          socket.emit('message_ack', returnedMessage); // Return msg to the client to local chat update
         });
     
-        // upon disconnection
         socket.on("disconnect", (reason) => {
           console.log(`socket ${socket.id} disconnected due to ${reason}`);
         });
       });
     
 }
+
 
 export default socketLogic;

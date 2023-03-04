@@ -19,6 +19,7 @@ class UsersService {
       const response = await axios.post<MessageModel[]>(appConfig.get2UsersHistory + userId1 + "/" + userId2);
       const messages = response.data;
       chatStore.dispatch({type:ChatActionType.fetchMessages, payload: messages});
+      console.log(new Date() + ' was called getUsersMessages and store in redux');
       return messages;
     }
 
