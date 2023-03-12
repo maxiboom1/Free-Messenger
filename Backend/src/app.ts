@@ -4,7 +4,6 @@ import routeNotFound from "./3-middleware/router-not-found";
 import appConfig from "./4-utils/app-config";
 import productsRoute from "./6-routes/messenger-routes";
 import authRoute from "./6-routes/auth-routes";
-//import { Server } from "socket.io";
 import cors from "cors";
 import socketLogic from "./5-services/socket";
 

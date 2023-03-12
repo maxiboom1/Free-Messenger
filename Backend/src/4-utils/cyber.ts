@@ -5,7 +5,6 @@ import { UnauthorizedError } from "../2-models/client-errors";
 
 const secretKey = "Bla bla bla";
 
-// Create new token:
 function createToken(user: UserModel): string {
 
     // Create container containing the user:
@@ -21,9 +20,6 @@ function createToken(user: UserModel): string {
     return token;
 }
 
-// The token is in a header named authorization
-// authorization: "Bearer the-token"
-//                 01234567
 async function verifyToken(request: Request): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
 

@@ -16,6 +16,7 @@ export class MessageModelWithUsernames {
     public messageBody: string;
     public sender: number;
     public recipient: number;
+
 }
 
 
