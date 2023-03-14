@@ -11,7 +11,6 @@ import socketLogic from "./5-services/socket";
 const server = express();
 
 // CORS
-
 server.use(cors({origin:"http://localhost:3000"}));
 
 // Create request.body object if json was sent:

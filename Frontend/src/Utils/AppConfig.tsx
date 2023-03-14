@@ -3,10 +3,10 @@ class AppConfig{
     public restApiPort = "3600";
     
     // Our public server 
-    public backendUrl = "http://62.90.145.124:";
+    //public backendUrl = "http://62.90.145.124:";
     
     // localhost
-    //public backendUrl = "http://localhost:";
+    public backendUrl = "http://localhost:";
 
     public registerUrl = "/api/register";
     public usersUrl = "/api/home";
