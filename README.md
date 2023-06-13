@@ -41,7 +41,7 @@ System Entities:
 - SenderId
 - RecipientId
 
-## Feathers
+## Features
 
  - Authentication and Authorization
  - User Profile 
