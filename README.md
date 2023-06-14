@@ -43,6 +43,7 @@ System Entities:
 - Photo filename
 
 3. Wall messages
+- Wall message id
 - Sender id
 - Recipient id
 - Message date
