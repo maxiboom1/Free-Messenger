@@ -26,15 +26,33 @@ System Entities:
 - Password
 - Role (regular user or admin)
 - Motto // Short phrase that describes users personality
+- Mail delivery //boolean
 - isOnline // Maybe it should be only on client side...
 - Photos
+- Unread messages
+- Wall messages
+- Config-1
+- Config-2
+- Config-3
+- Config-4
+- Config-5
 
 2. Photos
 - Photo id
 - User id
 - Photo filename
 
-2. Messages:
+3. Wall messages
+- Sender id
+- Recipient id
+- Message date
+- Message body
+
+4. Unread messages
+- Recipient id
+- Message id
+
+5. Messages:
 - Message id
 - messageDate
 - messageBody
