@@ -15,6 +15,9 @@ There are two roles in the system:
 2. Server-side: REST API in Node.js using Express and Socket.io for message exchange/notifying. Should be built in TypeScript.
 3. Client-side: React. Should be built in TypeScript.
 
+## System design
+The system will include edge server and several microservices. It will have 2 or 3 databases. 
+
 ## Project Details
 System Entities:
 1. Users:
