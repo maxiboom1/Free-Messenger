@@ -16,7 +16,11 @@ There are two roles in the system:
 3. Client-side: React. Should be built in TypeScript.
 
 ## System design
-The system will include edge server and several microservices. It will have 2 or 3 databases. 
+The system will include edge server and several microservices ( Auth service, Messages service, Users service). It will have 2 or 3 databases.
+Edge server will be the gateway for all external queries
+Services should have REST API interface.
+Maybe for messages service I will implement rabbit MQ.
+
 
 ## Project Details
 System Entities:
