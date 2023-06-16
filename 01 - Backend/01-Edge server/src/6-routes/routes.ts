@@ -25,4 +25,15 @@ router.post("/login", async (request:Request, response:Response, next:NextFuncti
     }
 });
 
+router.get("/users", async (request:Request, response:Response, next:NextFunction)=>{
+    try{
+        const res = await axios.get(appConfig.users);
+        const users = res.data;
+        response.status(201).json(users);
+    }catch(err:any){
+        next(err);
+    }
+});
+
+
 export default router;

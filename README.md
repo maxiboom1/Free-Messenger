@@ -38,11 +38,6 @@ System Entities:
 - Photos
 - Unread messages
 - Wall messages
-- Config-1
-- Config-2
-- Config-3
-- Config-4
-- Config-5
 
 2. Photos
 - Photo id
