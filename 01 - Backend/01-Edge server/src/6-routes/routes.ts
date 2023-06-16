@@ -1,6 +1,4 @@
-import axios from "axios";
 import express, { Request, Response, NextFunction } from "express";
-import appConfig from "../4-utils/app-config";
 import usersService from "../5-services/users-service";
 
 const router = express.Router();
