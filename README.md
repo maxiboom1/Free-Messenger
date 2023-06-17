@@ -17,8 +17,11 @@ There are two roles in the system:
 
 ## System design
 The system will include Edge server and following microservices: Messages service, Users service, Users_config service. Each service will manage it's own database.
+
 **Edge server:**  Gateway for all external queries. It will mess with auth, and socket connections. From other hand, he will follow tasks to services.
+
 **Users service:** Will have http interface, and take care for manipulations on users (get all, get one, add user etc...). The service manage its own database.
+
 **Messages service:** Will have rabbitMQ interface. This service will handle message events. The service manage its own database. 
 **User_config service:** will have http interface. Basocally, it's just store user configuration. For now, it will store user online status, and if the user want to get emails on messages when he is offline. But it can grown in future, and store additional personal configurations.
 
