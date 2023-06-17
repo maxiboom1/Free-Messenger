@@ -16,10 +16,11 @@ There are two roles in the system:
 3. Client-side: React. Should be built in TypeScript.
 
 ## System design
-The system will include edge server and several microservices ( Auth service, Messages service, Users service). It will have 2 or 3 databases.
-Edge server will be the gateway for all external queries
-Services should have REST API interface.
-Maybe for messages service I will implement rabbit MQ.
+The system will include Edge server and following microservices: Messages service, Users service, Users_config service. Each service will manage it's own database.
+**Edge server:**  Gateway for all external queries. It will mess with auth, and socket connections. From other hand, he will follow tasks to services.
+**Users service:** Will have http interface, and take care for manipulations on users (get all, get one, add user etc...). The service manage its own database.
+**Messages service:** Will have rabbitMQ interface. This service will handle message events. The service manage its own database. 
+**User_config service:** will have http interface. Basocally, it's just store user configuration. For now, it will store user online status, and if the user want to get emails on messages when he is offline. But it can grown in future, and store additional personal configurations.
 
 
 ## Project Details
