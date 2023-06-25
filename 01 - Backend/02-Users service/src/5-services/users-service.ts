@@ -1,4 +1,4 @@
-import { IUserModel, UserModel } from "../2-models/user";
+import { IUserModel, UserModel } from "../2-models/user-model";
 
 
 async function getAllUsers(): Promise<IUserModel[]> {

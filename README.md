@@ -90,3 +90,10 @@ Landing page for unregistered visitors should be based on this mockup that i jus
 The home page for user should be based on this mockup:
 
 ![WhatsApp Image 2023-06-13 at 00 29 55](https://github.com/maxiboom1/Free-Messenger/assets/94469848/a8c9300c-9112-4f60-8fb6-e4fc873f003a)
+
+
+## Flows
+
+## Auth flow scheme:
+
+![auth-flow image](04%20-%20Documentation/images/auth-flow.png)
