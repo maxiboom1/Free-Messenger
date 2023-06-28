@@ -12,7 +12,8 @@ router.post("/register", async (request:Request, response:Response, next:NextFun
         
         const user = await authService.register(data);
                 
-        response.status(201).json("register token from auth service");
+        response.status(201).json(user);
+        
     }catch(err:any){
         
         next(err);

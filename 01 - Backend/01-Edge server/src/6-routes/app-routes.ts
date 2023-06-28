@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import usersService from "../5-services/users-service";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import appConfig from "../4-utils/app-config";
-import cyber from "../4-utils/jwt-constructor";
+import jwt from "../4-utils/jwt-constructor";
 
 
 const router = express.Router();
@@ -20,7 +20,9 @@ router.post("/register", async (request:Request, response:Response, next:NextFun
         const user = res.data;
 
         // Create token 
-        const token = cyber.createToken(user);
+        const token = await jwt.createToken(user);
+        
+        console.log(token);
 
         // Return token to client
         response.status(201).json(token);
