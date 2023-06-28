@@ -7,7 +7,7 @@ async function register(user:IUserModel): Promise<string> {
     const err = user.validateSync();
     
     if(err) throw new ValidationError(err.message);
-    
+    // KEEP WORK HERE...
     return "yes";
 }
 
