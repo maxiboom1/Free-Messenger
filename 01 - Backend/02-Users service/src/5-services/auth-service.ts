@@ -24,12 +24,13 @@ async function register(user:IUserModel): Promise<IUserModel> {
     try{
       
       // Save user
-      const savedUser = await user.save();
+      await user.save();
 
       // Delete password
       delete user.password;
 
-      return savedUser;
+      console.log(user)
+      return user;
 
     }catch(err){
       {
