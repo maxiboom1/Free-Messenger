@@ -23,14 +23,8 @@ async function register(user:IUserModel): Promise<IUserModel> {
     
     try{
       
-      // Save user
       await user.save();
-
-      // Delete password
-      delete user.password;
-
-      console.log(user)
-      return user;
+      user.password = undefined; // Clear password 
 
     }catch(err){
       {
@@ -42,6 +36,8 @@ async function register(user:IUserModel): Promise<IUserModel> {
       }
     }
 
+    console.log('password: ',user.password);
+    return user;
 
 }
 
