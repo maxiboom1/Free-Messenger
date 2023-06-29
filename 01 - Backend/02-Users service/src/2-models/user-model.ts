@@ -7,7 +7,6 @@ export interface IUserModel extends mongoose.Document {
     nickName: string;
     nickName_lowercase: string;
     email:string;
-    email_lowercase: string;
     motto: string;
     password:string;
     role:number;  
@@ -54,12 +53,6 @@ export const UserSchema = new mongoose.Schema<IUserModel>({
     required: [true, "Missing email."],
     minlength: [5, "Email too short."],
     maxlength: [40, "Email too long."],
-  },
-
-  email_lowercase: {
-    type: String,
-    trim: true,
-    unique: true,
   },
 
   motto: {

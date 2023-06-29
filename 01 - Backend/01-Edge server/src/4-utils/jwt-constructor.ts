@@ -4,6 +4,9 @@ const secretKey = "My special secret key";
 
 async function createToken(user: any): Promise<string> {
 
+    // Delete password for security reasons, and user lowercase
+    delete user.password; 
+    delete user.nickName_lowercase;
     // Create container containing the user:
     const container = { user };
 

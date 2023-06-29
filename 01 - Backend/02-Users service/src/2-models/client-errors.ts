@@ -31,3 +31,10 @@ export class ValidationError extends ClientError {
         super(400, message);
     }
 }
+
+// Authorization error: 
+export class UnauthorizedError extends ClientError {
+    public constructor(message: string) {
+        super(401, message);
+    }
+}

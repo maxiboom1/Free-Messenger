@@ -1,8 +1,9 @@
-import { ValidationError } from "../2-models/client-errors";
+import { ValidationError, UnauthorizedError } from "../2-models/client-errors";
 import RoleModel from "../2-models/role-model";
-import { IUserModel } from "../2-models/user-model";
+import { IUserModel, UserModel } from "../2-models/user-model";
 import { MongoError } from "mongodb";
 import cyber from "../4-utils/cyber";
+import CredentialsModel from "../2-models/credentials-model";
 
 
 async function register(user:IUserModel): Promise<IUserModel> {
@@ -14,17 +15,16 @@ async function register(user:IUserModel): Promise<IUserModel> {
     // Hash user password
     user.password = cyber.hashPassword(user.password);
     
-    // Manually create lowercase copies to avoid users duplicates with different cases
-    user.email_lowercase = user.email.toLowerCase();
+    // Force lowercase on email
+    user.email = user.email.toLowerCase();
+    // Create lowercase copy of nickname, just for internal needs (to comp)
     user.nickName_lowercase = user.nickName.toLowerCase();
 
     // Assign user role
     user.role = RoleModel.User;
     
     try{
-      
       await user.save();
-      user.password = undefined; // Clear password 
       return user;
     }catch(err){
       {
@@ -38,8 +38,25 @@ async function register(user:IUserModel): Promise<IUserModel> {
 
 }
 
-async function login(): Promise<string> {
-    return null;
+async function login(credentials: CredentialsModel): Promise<IUserModel> {
+    
+  credentials.validate();
+  credentials.password = cyber.hashPassword(credentials.password);
+
+  // Try to find user with provided pass, and match its email OR nickname with provided emailOrNickname
+  const user = await UserModel.findOne({
+    password:credentials.password,
+    $or:[
+      {nickName_lowercase:credentials.emailOrNickname.toLowerCase()},
+      {email:credentials.emailOrNickname.toLowerCase()},
+    ]
+  });
+  
+  // If we didn't found user, throw err
+  if(!user) throw new UnauthorizedError(`Wrong username or password`); 
+  
+  return user;
+
 }
 
 export default {
