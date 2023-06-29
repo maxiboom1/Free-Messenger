@@ -8,7 +8,7 @@ import jwt from "../4-utils/jwt-constructor";
 const router = express.Router();
 
 
-// Auth routes
+// Register
 router.post("/register", async (request:Request, response:Response, next:NextFunction)=>{
     
     try{ 
@@ -22,8 +22,6 @@ router.post("/register", async (request:Request, response:Response, next:NextFun
         // Create token 
         const token = await jwt.createToken(user);
         
-        console.log(token);
-
         // Return token to client
         response.status(201).json(token);
 
@@ -34,7 +32,31 @@ router.post("/register", async (request:Request, response:Response, next:NextFun
 
 });
 
+// Login 
+router.post("/login", async (request:Request, response:Response, next:NextFunction)=>{
+    
+    try{ 
+        
+        // Pass login request to users service
+        const res = await axios.post(appConfig.login, request.body); 
+        
+        // Extract user
+        const user = res.data;
 
+        // Create token 
+        const token = await jwt.createToken(user);
+        
+        // Return token to client
+        response.status(201).json(token);
+
+    }catch(err:any){
+        
+        next(err.response || err.message); // In axios errors, the error msg wrapped in response 
+    }
+
+});
+
+// Get users list
 router.get("/users", async (request:Request, response:Response, next:NextFunction)=>{
     try{
         const users = await usersService.getAllUsers();
