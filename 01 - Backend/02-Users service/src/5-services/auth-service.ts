@@ -25,19 +25,16 @@ async function register(user:IUserModel): Promise<IUserModel> {
       
       await user.save();
       user.password = undefined; // Clear password 
-
+      return user;
     }catch(err){
       {
-        if (err instanceof MongoError && err.code === 11000) { // MongoError 11000 is uniq indexes error
+        if (err instanceof MongoError && err.code === 11000) { // MongoError 11000 is duplicate key error
            throw new ValidationError(`Nickname or email is already taken.`);
         }
         // Re-throw the error if it's not a duplicate key error
         throw err;
       }
-    }
-
-    console.log('password: ',user.password);
-    return user;
+    }  
 
 }
 
