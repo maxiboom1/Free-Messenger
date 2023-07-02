@@ -8,6 +8,7 @@ export interface IUserModel extends mongoose.Document {
     nickName_lowercase: string;
     email:string;
     motto: string;
+    profileImages: string[];
     password:string;
     role:number;  
 }
@@ -62,6 +63,13 @@ export const UserSchema = new mongoose.Schema<IUserModel>({
     minlength: [2, "Motto too short."],
     maxlength: [100, "Motto too long."],
   },
+
+  profileImages: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
 
   password: {
     type: String,

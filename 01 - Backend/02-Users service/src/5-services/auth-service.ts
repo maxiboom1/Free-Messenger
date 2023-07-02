@@ -4,12 +4,14 @@ import { IUserModel, UserModel } from "../2-models/user-model";
 import { MongoError } from "mongodb";
 import cyber from "../4-utils/cyber";
 import CredentialsModel from "../2-models/credentials-model";
+import { UploadedFile } from "express-fileupload";
 
 
-async function register(user:IUserModel): Promise<IUserModel> {
+async function register(user:IUserModel, imageFiles: UploadedFile[]): Promise<IUserModel> {
     
     // Validate received user data (also checks nickname and email to be uniq)
     const err = user.validateSync();
+    console.log(imageFiles);
     if(err) throw new ValidationError(err.message);
     
     // Hash user password
