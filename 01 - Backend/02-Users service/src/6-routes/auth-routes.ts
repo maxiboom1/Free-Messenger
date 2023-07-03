@@ -12,7 +12,7 @@ router.post("/register", async (request:Request, response:Response, next:NextFun
         
         // Take image if exist:
         const imageFiles = request.files?.images as UploadedFile[];  
-          
+        console.log(imageFiles);
         const data = new UserModel(request.body);
         
         const user = await authService.register(data,imageFiles);
