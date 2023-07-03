@@ -11,7 +11,7 @@ async function register(user:IUserModel, imageFiles: UploadedFile[]): Promise<IU
     
     // Validate received user data (also checks nickname and email to be uniq)
     const err = user.validateSync();
-    console.log(imageFiles);
+        
     if(err) throw new ValidationError(err.message);
     
     // Hash user password
@@ -25,11 +25,14 @@ async function register(user:IUserModel, imageFiles: UploadedFile[]): Promise<IU
     // Assign user role
     user.role = RoleModel.User;
     
+    console.log(user);
+
     try{
       await user.save();
       return user;
     }catch(err){
       {
+        console.error(err);
         if (err instanceof MongoError && err.code === 11000) { // MongoError 11000 is duplicate key error
            throw new ValidationError(`Nickname or email is already taken.`);
         }
