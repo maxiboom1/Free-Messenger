@@ -1,3 +1,4 @@
+import { UploadedFile } from "express-fileupload";
 import mongoose from "mongoose";
 
 // 1. Interface representing our model:
@@ -78,7 +79,7 @@ export const UserSchema = new mongoose.Schema<IUserModel>({
     minlength: [8, "password too short."],
   },
 
-  role: {type: Number}
+  role: {type: Number},
 
 }, 
 {

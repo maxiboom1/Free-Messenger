@@ -10,8 +10,8 @@ import expressFileUpload from "express-fileupload";
 const server = express();
 
 server.use(cors());
-server.use(express.json());
 server.use(expressFileUpload()); //Get files into request.files
+server.use(express.json());
 server.use("/api", dataRoutes);
 server.use(routeNotFound);
 server.use(catchAll);

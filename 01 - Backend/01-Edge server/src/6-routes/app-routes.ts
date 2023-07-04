@@ -3,8 +3,7 @@ import usersService from "../5-services/users-service";
 import axios from "axios";
 import appConfig from "../4-utils/app-config";
 import jwt from "../4-utils/jwt-constructor";
-import { UploadedFile } from "express-fileupload";
-
+import wrapToFormData from "../5-services/form-data-service";
 
 const router = express.Router();
 
@@ -13,19 +12,17 @@ const router = express.Router();
 router.post("/register", async (request:Request, response:Response, next:NextFunction)=>{
     
     try{ 
-        const imageFiles = request.files?.images as UploadedFile[];  
-        console.log(imageFiles);
+
+        const formData = wrapToFormData(request); // Create formdata from request, to pass it to users-service
         
-        // Pass request to users service
-        const res = await axios.post(appConfig.register, request.body); 
+        const config = { headers: {"Content-Type": "multipart/form-data"} }; // Used to accept files as payload 
+    
+        const res = await axios.post(appConfig.register, formData, config); 
         
-        // Extract user
         const user = res.data;
 
-        // Create token 
         const token = await jwt.createToken(user);
         
-        // Return token to client
         response.status(201).json(token);
 
     }catch(err:any){

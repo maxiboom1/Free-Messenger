@@ -9,13 +9,20 @@ const router = express.Router();
 
 router.post("/register", async (request:Request, response:Response, next:NextFunction)=>{
     try{
-        
-        // Take image if exist:
-        const imageFiles = request.files?.images as UploadedFile[];  
-        console.log(imageFiles);
+
+        let images: UploadedFile[] = [];
+    
+        if (request.files?.images) {
+            if (Array.isArray(request.files.images)) { 
+                images = request.files.images;
+            } else {
+                images = [request.files.images];
+            }
+        }
+                
         const data = new UserModel(request.body);
         
-        const user = await authService.register(data,imageFiles);
+        const user = await authService.register(data, images);
                 
         response.status(201).json(user);
         

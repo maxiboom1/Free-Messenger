@@ -4,18 +4,27 @@ import { IUserModel, UserModel } from "../2-models/user-model";
 import { MongoError } from "mongodb";
 import cyber from "../4-utils/cyber";
 import CredentialsModel from "../2-models/credentials-model";
+import imageHandler from "../4-utils/image-handler";
 import { UploadedFile } from "express-fileupload";
 
 
-async function register(user:IUserModel, imageFiles: UploadedFile[]): Promise<IUserModel> {
+async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserModel> {
     
     // Validate received user data (also checks nickname and email to be uniq)
     const err = user.validateSync();
         
     if(err) throw new ValidationError(err.message);
     
+    let imageNames = [];
+    
+    // If user sent images - send it and get back it uniq names
+    if(images){ imageNames = await imageHandler.saveFile(images); }
+    
     // Hash user password
     user.password = cyber.hashPassword(user.password);
+
+    // Save profileImageNames
+    user.profileImages = imageNames;
     
     // Force lowercase on email
     user.email = user.email.toLowerCase();
@@ -25,11 +34,12 @@ async function register(user:IUserModel, imageFiles: UploadedFile[]): Promise<IU
     // Assign user role
     user.role = RoleModel.User;
     
-    console.log(user);
-
     try{
+      
       await user.save();
+      
       return user;
+      
     }catch(err){
       {
         console.error(err);
