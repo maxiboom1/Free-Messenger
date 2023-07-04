@@ -3,7 +3,7 @@ import usersService from "../5-services/users-service";
 import axios from "axios";
 import appConfig from "../4-utils/app-config";
 import jwt from "../4-utils/jwt-constructor";
-import wrapToFormData from "../5-services/form-data-service";
+import wrapToFormData from "../4-utils/form-data-constructor";
 
 const router = express.Router();
 
