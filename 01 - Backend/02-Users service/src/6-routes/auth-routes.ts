@@ -21,9 +21,7 @@ router.post("/register", async (request:Request, response:Response, next:NextFun
         }
                 
         const data = new UserModel(request.body);
-        
         const user = await authService.register(data, images);
-                
         response.status(201).json(user);
         
     }catch(err:any){

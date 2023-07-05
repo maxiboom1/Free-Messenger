@@ -6,6 +6,7 @@ import cyber from "../4-utils/cyber";
 import CredentialsModel from "../2-models/credentials-model";
 import imageHandler from "../4-utils/image-handler";
 import { UploadedFile } from "express-fileupload";
+import appConfig from "../4-utils/app-config";
 
 
 async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserModel> {
@@ -35,8 +36,8 @@ async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserMo
     user.role = RoleModel.User;
     
     try{
-      
-      await user.save();
+      // Avoid db save fot testing
+      if (!appConfig.debug_mode) await user.save();
       
       return user;
       

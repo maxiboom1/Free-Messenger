@@ -6,6 +6,7 @@ class AppConfig {
     // User DB address
     public usersDb = "mongodb://127.0.0.1:27017/Messenger_users";
 
+    public debug_mode = false;
     
 }
 
