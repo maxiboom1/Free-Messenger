@@ -19,7 +19,7 @@ There are two roles in the system:
 The system will include Edge server and following microservices: Messages service, Users service, Users_config service. Each service will manage it's own database.
 
 
-**Edge server:**  Gateway for all external queries. It will mess with auth, and socket connections. From other hand, he will follow tasks to services.
+**Edge server:**  Api gateway for all external queries. It will mess with auth, and socket connections. From other hand, he will proxy tasks to services.
 
 
 **Users service:** Will have http interface, and take care for manipulations on users (get all, get one, add user etc...). The service manage its own database.
@@ -94,6 +94,14 @@ The home page for user should be based on this mockup:
 
 ## Flows
 
-## Auth flow scheme:
+## Register and Login flow:
 
+User sends register request with user data to edge server => 
+edge route it to users service with express-http-proxy => 
+Service validate and store user data, or throw error back to proxy => 
+Proxy intercept the response, fetch user or err, and creates token =>
+Proxy returns token or err to client.
 ![auth-flow image](04%20-%20Documentation/images/auth-flow.png)
+
+There are up to 3 profile images that user can upload. 
+There is an route that give those images, also using proxy, but in this case, without intercept the response.

@@ -18,13 +18,17 @@ async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserMo
     
     let imageNames = [];
     
+    // If user sends more than 3 images - throw err message
+    if(images && images.length > 3) throw new ValidationError("Please upload up to 3 profile images");
+    
     // If user sent images - send it and get back it uniq names
     if(images){ imageNames = await imageHandler.saveFile(images); }
     
+  
     // Hash user password
     user.password = cyber.hashPassword(user.password);
 
-    // Save profileImageNames
+    // Save profileImageUrls to user
     user.profileImages = imageNames.map(img=> appConfig.profileImageUrl + img);
     
     // Force lowercase on email
