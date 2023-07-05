@@ -97,10 +97,15 @@ The home page for user should be based on this mockup:
 ## Register and Login flow:
 
 User sends register request with user data to edge server => 
+
 edge route it to users service with express-http-proxy => 
+
 Service validate and store user data, or throw error back to proxy => 
+
 Proxy intercept the response, fetch user or err, and creates token =>
+
 Proxy returns token or err to client.
+
 ![auth-flow image](04%20-%20Documentation/images/auth-flow.png)
 
 There are up to 3 profile images that user can upload. 
