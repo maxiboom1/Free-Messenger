@@ -25,10 +25,11 @@ async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserMo
     user.password = cyber.hashPassword(user.password);
 
     // Save profileImageNames
-    user.profileImages = imageNames;
+    user.profileImages = imageNames.map(img=> appConfig.profileImageUrl + img);
     
     // Force lowercase on email
     user.email = user.email.toLowerCase();
+    
     // Create lowercase copy of nickname, just for internal needs (to comp)
     user.nickName_lowercase = user.nickName.toLowerCase();
 

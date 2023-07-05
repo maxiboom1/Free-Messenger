@@ -1,4 +1,3 @@
-import { UploadedFile } from "express-fileupload";
 import mongoose from "mongoose";
 
 // 1. Interface representing our model:

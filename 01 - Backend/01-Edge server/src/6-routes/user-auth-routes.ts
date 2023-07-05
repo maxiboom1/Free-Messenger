@@ -5,7 +5,7 @@ import jwtConstructor from "../4-utils/jwt-constructor";
 const router = express.Router();
 const UserServiceProxy = require('express-http-proxy');
 
-// Register
+// Register http://localhost:4000/auth/register ==> http://localhost:4001/api/register
 router.post("/register", async (request: Request, response: Response, next: NextFunction) => {
     
     const registerProxy = UserServiceProxy(appConfig.register, {
@@ -26,6 +26,27 @@ router.post("/register", async (request: Request, response: Response, next: Next
     
 });
 
+
+// Login http://localhost:4000/auth/login ==> http://localhost:4001/api/login
+router.post("/login", async (request: Request, response: Response, next: NextFunction) => {
+    
+    const loginProxy = UserServiceProxy(appConfig.login, {
+        limit: "20mb",
+        userResDecorator: async (proxyRes, proxyResData, userReq, userRes) => { 
+            
+            try{
+                const user = JSON.parse(proxyResData.toString('utf8')); // Get user object from service response
+                const token = await jwtConstructor.createToken(user); // Create token from given user
+                return token;
+            }catch(e){
+                return proxyResData; // If response was string(probably its error), pass it to client
+            }
+ 
+    }});
+
+    loginProxy(request, response, next);
+    
+});
 
 
 
