@@ -1,5 +1,4 @@
 import express from "express";
-import cors from "cors";
 import authRoutes from "./6-routes/auth-routes";
 import usersRoutes from "./6-routes/users-routes";
 
@@ -11,7 +10,6 @@ import expressFileUpload from "express-fileupload";
 
 const server = express();
 
-server.use(cors());
 server.use(express.json());
 server.use(expressFileUpload()); //Get files into request.files
 server.use(authRoutes);

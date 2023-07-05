@@ -1,13 +1,13 @@
-import { IUserModel, UserModel } from "../2-models/user-model";
+import { IMessageModel } from "../2-models/message-model";
 
 
-async function getAllUsers(): Promise<IUserModel[]> {
+async function getMessageHistory(userId1:string, userId2:string): Promise<IMessageModel> {
     
-    return UserModel.find().exec();
+    //return UserModel.find().exec();
+    return null;
 }
 
-
 export default {
-    getAllUsers
+    getMessageHistory
 };
 
