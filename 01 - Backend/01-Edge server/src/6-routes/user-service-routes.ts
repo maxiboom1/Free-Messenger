@@ -9,17 +9,17 @@ const UserServiceProxy = require('express-http-proxy');
 router.post("/register", async (request: Request, response: Response, next: NextFunction) => {
     
     const registerProxy = UserServiceProxy(appConfig.register, {
-        
         limit: "20mb",
-        
-        userResDecorator: async (proxyRes, proxyResData, userReq, userRes) => {
+        userResDecorator: async (proxyRes, proxyResData, userReq, userRes) => { 
             
-            // Get user object from service response
-            const user = JSON.parse(proxyResData.toString('utf8'));
-            // Create token from given user
-            const token = await jwtConstructor.createToken(user);
-            
-            return token; 
+            try{
+                const user = JSON.parse(proxyResData.toString('utf8')); // Get user object from service response
+                const token = await jwtConstructor.createToken(user); // Create token from given user
+                return token;
+            }catch(e){
+                return proxyResData; // If response was string(probably its error), pass it to client
+            }
+ 
     }});
 
     registerProxy(request, response, next);
