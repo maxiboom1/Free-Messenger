@@ -2,6 +2,7 @@ class AppConfig {
     
     // Message-App settings:
     public port = 4002;
+    public socketPort = 8999;
     public serverUrl = "http://localhost:" + this.port;
 
     // Edge server settings

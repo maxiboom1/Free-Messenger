@@ -5,6 +5,7 @@ import appConfig from "./4-utils/app-config";
 import messageRoutes from"./6-routes/message-routes";
 import dal from "./4-utils/dal";
 import expressFileUpload from "express-fileupload";
+import socketService from "./5-services/socket-io-service";
 
 const server = express();
 
@@ -18,3 +19,10 @@ server.listen(appConfig.port, async () => {
     await dal.connect();
     console.log("Listening on http://localhost:" + appConfig.port);
 });
+
+
+// Create server for socket service:
+const httpServer = server.listen(appConfig.socketPort, () => console.log("Socket server listening on http://localhost:" + appConfig.socketPort));
+
+// Start socket service with giver server:
+socketService.init(httpServer);
