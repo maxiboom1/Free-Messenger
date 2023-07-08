@@ -7,7 +7,14 @@ async function getMessageHistory(userId1:string, userId2:string): Promise<IMessa
     return null;
 }
 
+async function getWallMessages(userId:string): Promise<IMessageModel> {
+    
+    //return UserModel.find().exec();
+    return null;
+}
+
 export default {
-    getMessageHistory
+    getMessageHistory,
+    getWallMessages
 };
 

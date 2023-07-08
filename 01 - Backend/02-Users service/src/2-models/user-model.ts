@@ -35,7 +35,6 @@ export const UserSchema = new mongoose.Schema<IUserModel>({
   nickName: {
     type: String,
     trim: true,
-    unique: true,
     required: [true, "Missing nickName."],
     minlength: [2, "nickName too short."],
     maxlength: [15, "nickName too long."],

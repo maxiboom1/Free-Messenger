@@ -6,7 +6,7 @@ class AppConfig {
     // Auth && Users Service routes:
     public login = "http://localhost:4001/api/login";
     public register = "http://localhost:4001/api/register";
-    public users = "http://localhost:4001/api/users";
+    public users = "http://localhost:4001/users";
     public profileImageUrl = "http://localhost:4001/profileImage/";
 
     // Messages Service:

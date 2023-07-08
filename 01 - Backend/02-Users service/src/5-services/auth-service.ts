@@ -11,7 +11,13 @@ import appConfig from "../4-utils/app-config";
 
 async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserModel> {
     
-    // Validate received user data (also checks nickname and email to be uniq)
+    // Force lowercase on email
+    user.email = user.email.toLowerCase();
+    
+    // Create lowercase copy of nickname, just for internal needs (to comp)
+    user.nickName_lowercase = user.nickName.toLowerCase();
+
+    // Validate received user data (also checks nickName_lowercase and email to be uniq)
     const err = user.validateSync();
         
     if(err) throw new ValidationError(err.message);
@@ -30,12 +36,6 @@ async function register(user:IUserModel, images:UploadedFile[]): Promise<IUserMo
 
     // Save profileImageUrls to user
     user.profileImages = imageNames.map(img=> appConfig.profileImageUrl + img);
-    
-    // Force lowercase on email
-    user.email = user.email.toLowerCase();
-    
-    // Create lowercase copy of nickname, just for internal needs (to comp)
-    user.nickName_lowercase = user.nickName.toLowerCase();
 
     // Assign user role
     user.role = RoleModel.User;

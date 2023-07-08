@@ -14,7 +14,18 @@ function init(httpServer: http.Server):void{
     // Create listener just for notifying new client connection (the system will work also without it)
     // Here we can manage a list of clients in case we need to reach out to a specific person among them.
     socketServer.sockets.on("connection", (socket: Socket) =>{
+        
         console.log("New client connected on socket id: " + socket.id);
+
+        //Listen to specific client messages
+        socket.on("test",(msg)=>{
+    
+            console.log('Message: ', msg);
+            
+            socketServer.sockets.emit('test', "bush");
+        });
+
+
     });
 
 }
