@@ -1,20 +1,35 @@
+import { SocketContext, socket } from "../../../Utils/socket";
+import UsersPanel from "../UsersPanel/UsersPanel";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Menu from "../Menu/Menu";
 import Routing from "../Routing/Routing";
 import "./Layout.css";
 
 function Layout(): JSX.Element {
     return (
+        
+        <SocketContext.Provider value={socket}>
+        
         <div className="Layout">
-            
-            <Menu />
-            <hr />
+            <header>
+                <Header />
+            </header>
 
-			<Header />
+            <main>
+                <Routing />
+            </main>
 
-            <Routing />
+            <aside>
+                <UsersPanel />
+            </aside>
             
+            <footer>
+                <Footer />
+            </footer>
+
         </div>
+
+        </SocketContext.Provider>
     );
 }
 

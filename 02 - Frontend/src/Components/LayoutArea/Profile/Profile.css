@@ -1,0 +1,14 @@
+.Profile > .send{
+    margin-top: 30px;
+    display: flex; 
+}
+
+.Profile > .send > input{
+    height:35px;
+    width:100%;
+}
+
+.Profile > .send > button{
+    width: 100px;
+}
+

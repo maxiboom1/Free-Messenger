@@ -1,0 +1,9 @@
+.AuthMenu {
+    display:flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.AuthMenu > a{
+    margin-left: 15px;
+}

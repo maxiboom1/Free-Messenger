@@ -1,17 +1,27 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import Insert from "../../DataArea/Insert/Insert";
-import List from "../../DataArea/List/List";
-import Home from "../../HomeArea/Home/Home";
-import PageNotFound from "../PageNotFound/PageNotFound";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "../../AuthArea/Login/Login";
+import Profile from "../Profile/Profile";
+import Main from "../Main/Main";
+import "./Routing.css";
 
 function Routing(): JSX.Element {
     return (
+        
         <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/list" element={<List />} />
-            <Route path="/insert" element={<Insert />} />
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="*" element={<PageNotFound />} />
+            
+            {/* Default Route: */}
+            <Route path="/" element={<Navigate to="/main" />} />
+
+            {/* Home Page: */}
+            <Route path="/main" element= {<Main />} />
+            
+            {/* Login Page: */}
+            <Route path="/login" element= {<Login />} />
+
+            {/* Login Page: */}
+            <Route path="/chatroom" element= {<Profile />} />
+
+
         </Routes>
     );
 }

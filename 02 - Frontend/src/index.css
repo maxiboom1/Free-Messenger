@@ -1,12 +1,6 @@
 html, body, #root {
-    height: 100%;
-    text-align: center;
-    font-size: x-large;
-    background-image: linear-gradient(magenta, darkmagenta);
-    color: white;
+  margin:0;
+  height: 100%;
+  color: rgb(41, 63, 31);
+  direction:ltr 
 }
-
-a {
-    color: blue;
-}
-
